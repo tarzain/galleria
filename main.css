@@ -171,11 +171,11 @@ img {
 }
 
 #bigImage > .title{
-  /* position: fixed; */
-  /* top: 0px; */
+  position: fixed;
+  top: 0px;
   height: 40px;
   text-align: center;
-  /* width: 100%; */
+  width: 50%;
   z-index: 1006;
   color: white;
   font-size: 20pt;
@@ -215,4 +215,14 @@ img {
 
 #preload{
   display: none;
+}
+
+.message{
+  width: 50%;
+  height: 3%;
+  color: whitesmoke;
+  font-size: 20px;
+  position: fixed;
+  bottom: 5%;
+  text-align: center;
 }
