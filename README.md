@@ -15,4 +15,4 @@ then cd into the directory:
 `cd galleria`
 
 and add your Giphy API key to the `config.js` file:
-`echo var API_KEY = [INSERT_YOUR_API_KEY_HERE]; >> config.js`
+`echo "var API_KEY = [INSERT_YOUR_API_KEY_HERE];" >> config.js`
