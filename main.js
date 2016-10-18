@@ -1,4 +1,4 @@
-function callAjax(url, params, callback){
+function ajax(url, params, callback){
     // populate URL params
     param_names = Object.keys(params);
 
@@ -23,7 +23,7 @@ var searchGiphy = function(search_tag, n_images, callback){
   var BASE_URL = 'http://api.giphy.com/v1/gifs/search?';
   var params = {'q' : search_tag, 'api_key' : API_KEY, 'limit' : n_images};
 
-  callAjax(BASE_URL, params, callback);
+  ajax(BASE_URL, params, callback);
 }
 
 var resultsCallback = function(data){
@@ -53,16 +53,41 @@ var toggleLightbox = function(event){
     document.getElementById('lightbox').classList.toggle('show');
 
     if(event.className === 'item'){
-        imageId = event.getAttribute('data-id');
+        imageId = parseInt(event.getAttribute('data-id'));
         renderImage(imageId);
     }
 
 }
 
+var preloadImages = function(imageId){
+  begin = imageId > 0 ? imageId - 1 : 0;
+  end = imageId < results.length-1 ? imageId + 2 : results.length-1;
+  neighbors = results.slice(begin, end);
+
+  // initialize preload container with 3 empty image elements
+  preloadContainer = document.getElementById('preload');
+  while(preloadContainer.children.length < 3){
+    preloadTemplate = preloadContainer.children[0].cloneNode(true);
+    preloadContainer.appendChild(preloadTemplate);
+  }
+
+  for (var i = neighbors.length - 1; i >= 0; i--) {
+    preloadContainer.children[i].setAttribute('src', neighbors[i]['images']['original']['url']);
+  }
+}
+
 var renderImage = function(imageId){
+    preloadImages(imageId);
+
+
     imageUrl = results[imageId]['images']['original']['url'];
+    imageTitle = results[imageId]['slug'].split('-').slice(0,-1).join(' ');
     lightboxImage = document.getElementById('bigImage').getElementsByTagName('img')[0];
+    lightboxTitle = document.getElementById('bigImage').getElementsByTagName('p')[0];
+
+    lightboxImage.style.backgroundImage = 'url("'+results[imageId]['images']['fixed_height_downsampled']['url']+'")';
     lightboxImage.setAttribute('src', imageUrl);
+    lightboxTitle.innerHTML = imageTitle;
 }
 
 var checkKey = function(e) {

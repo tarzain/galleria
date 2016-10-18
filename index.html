@@ -16,7 +16,9 @@
 			<div id="bg" onclick='toggleLightbox(this)'></div>
 
 			<div id="bigImage">
+				<p class="title"></p>
 				<img src=''>
+
 			</div>
 		</div>
 		<div id='gallery'>
@@ -27,12 +29,16 @@
 		  </a>
 		</div>
 
+		<div id='preload'>
+			<img src=''>
+		</div>
+
 		<script type='text/javascript'>
 			var results = null;
 			var imageId = 0;
 			
 			document.onkeydown = checkKey;
-			searchGiphy('coding', 40, resultsCallback);
+			searchGiphy('eating', 20, resultsCallback);
 		</script>
 	</body>
 </html>
