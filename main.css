@@ -25,11 +25,29 @@ a {
   margin-right: 8px;
 }
 
+/* many media queries for the column/grid layout */
+
 a:nth-of-type(2n) {
   margin-right: 0;
 }
 
-@media screen and (min-width: 50em) {
+/* 3 column grid */
+@media screen and (min-width: 45em) and (max-width: 64em){
+  a {
+    width: calc(33% - 6px);
+  }
+  
+  a:nth-of-type(n) {
+    margin-right: 8px;
+  }
+  
+  a:nth-of-type(3n) {
+    margin-right: 0;
+  }
+}
+
+/* 4 column grid */
+@media screen and (min-width: 65em) and (max-width: 89em){
   a {
     width: calc(25% - 6px);
   }
@@ -42,6 +60,38 @@ a:nth-of-type(2n) {
     margin-right: 0;
   }
 }
+
+/* 5 column grid */
+@media screen and (min-width: 90em) and (max-width:105em){
+  a {
+    width: calc(20% - 6px);
+  }
+  
+  a:nth-of-type(n) {
+    margin-right: 6px;
+  }
+  
+  a:nth-of-type(5n) {
+    margin-right: 0;
+  }
+}
+
+/* 6 column grid */
+@media screen and (min-width: 106em){
+  a {
+    width: calc(16% - 6px);
+  }
+  
+  a:nth-of-type(n) {
+    margin-right: 6px;
+  }
+  
+  a:nth-of-type(6n) {
+    margin-right: 0px;
+  }
+}
+
+/*end media queries*/
 
 a:hover img {
   transform: scale(0.85);
@@ -104,7 +154,7 @@ img {
 
 #bigImage{
   position: fixed;
-  top: 25%;
+  top: 10%;
   left: 25%;
   width: 50%;
   display: block;
@@ -129,6 +179,38 @@ img {
   z-index: 1006;
   color: white;
   font-size: 20pt;
+}
+
+.btn{
+  background-color: rgba(255, 255, 255, 0.05);
+  color: whitesmoke;
+  border: none;
+  font-size: 28pt;
+  position: fixed;
+  top: 0px;
+  height: 100%;
+  width: 10%;
+  transition: background-color 0.1s ease-in-out;
+}
+
+.btn:hover{
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.btn:active{
+  background-color: rgba(255, 255, 255, 0.25);
+}
+
+.btn:focus{
+  outline:0;
+}
+
+#left{
+  left: 0;
+}
+
+#right{
+  right: 0;
 }
 
 #preload{

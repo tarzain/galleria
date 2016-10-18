@@ -8,7 +8,7 @@ function ajax(url, params, callback){
     }
 
     var xhr;
-    // compatible with IE7+, Firefox, Chrome, Opera, Safari
+    
     xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function(){
         if (xhr.readyState == 4 && xhr.status == 200){
@@ -56,10 +56,11 @@ var toggleLightbox = function(event){
         imageId = parseInt(event.getAttribute('data-id'));
         renderImage(imageId);
     }
-
 }
 
 var preloadImages = function(imageId){
+  // for slow connections, when the lightbox is open 
+  // we preload the previous and next images in the gallery
   begin = imageId > 0 ? imageId - 1 : 0;
   end = imageId < results.length-1 ? imageId + 2 : results.length-1;
   neighbors = results.slice(begin, end);
@@ -79,7 +80,6 @@ var preloadImages = function(imageId){
 var renderImage = function(imageId){
     preloadImages(imageId);
 
-
     imageUrl = results[imageId]['images']['original']['url'];
     imageTitle = results[imageId]['slug'].split('-').slice(0,-1).join(' ');
     lightboxImage = document.getElementById('bigImage').getElementsByTagName('img')[0];
@@ -90,20 +90,28 @@ var renderImage = function(imageId){
     lightboxTitle.innerHTML = imageTitle;
 }
 
+var prevImage = function(){
+  if(imageId > 0){
+    imageId--;
+    renderImage(imageId);
+  }
+}
+
+var nextImage = function(){
+  if(imageId < results.length-1){
+    imageId++;
+    renderImage(imageId);
+  }
+}
+
 var checkKey = function(e) {
     e = e || window.event;
 
     if (e.keyCode === 37) {
-        if(imageId > 0){
-            imageId--;
-            renderImage(imageId);
-        }
+      prevImage();
     }
     else if (e.keyCode === 39) {
-        if(imageId < results.length-1){
-            imageId++;
-            renderImage(imageId);
-        }
+      nextImage();
     }
     else if (e.keyCode === 27) {
         toggleLightbox(e);
