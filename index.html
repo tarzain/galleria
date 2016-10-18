@@ -1,3 +1,5 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
 <html>
 	<head>
 		<title>InstaGallery</title>
@@ -7,17 +9,89 @@
 
 		<script src='main.js' type='text/javascript'></script>
 		
-		<script type='text/javascript'>
-			images = [];
-
-			var resultsCallback = function(data){
-				
-			}
-			
-			searchGiphy('cats', 4, resultsCallback);
-		</script>
+		<link rel='stylesheet' type='text/css' href='main.css' media='screen'/>
 	</head>
 	<body>
+		<div id="lightbox">
+			<div id="bg" onclick='toggleLightbox(this)'></div>
 
+			<div id="bigImage">
+				<img src=''>
+			</div>
+		</div>
+		<div id='gallery'>
+		  <a class='item' onclick='toggleLightbox(this)'>
+		    <figure>
+		      <img src='' title=''>
+		    </figure>
+		  </a>
+		</div>
+
+		<script type='text/javascript'>
+			var results = null;
+			var imageId = 0;
+
+			var resultsCallback = function(data){
+				results = JSON.parse(data)['data'];
+				gallery = document.getElementById('gallery');
+
+				for(var i = 0; i<=results.length-1; i++){
+					galleryItem = document.getElementById('gallery').children[0];
+					if(i > 0){
+						galleryItem = galleryItem.cloneNode(true);
+						gallery.appendChild(galleryItem);
+					}
+					
+					img_url = results[i]['images']['fixed_height_downsampled']['url']
+					img_title = results[i]['slug'].split('-').slice(0,-1).join(' ');
+					
+					galleryItem.setAttribute('data-id', i);
+
+					image = galleryItem.children[0].getElementsByTagName('img')[0];
+
+					image.setAttribute('src', img_url);
+					image.setAttribute('title', img_title)
+				}
+			}
+
+			var toggleLightbox = function(event){
+				document.getElementById('lightbox').classList.toggle('show');
+
+				if(event.className === 'item'){
+					imageId = event.getAttribute('data-id');
+					renderImage(imageId);
+				}
+				
+			}
+
+			var renderImage = function(imageId){
+				imageUrl = results[imageId]['images']['original']['url'];
+				lightboxImage = document.getElementById('bigImage').getElementsByTagName('img')[0];
+				lightboxImage.setAttribute('src', imageUrl);
+			}
+
+			var checkKey = function(e) {
+				e = e || window.event;
+
+				if (e.keyCode === 37) {
+					if(imageId > 0){
+						imageId--;
+						renderImage(imageId);
+					}
+				}
+				else if (e.keyCode === 39) {
+					if(imageId < results.length-1){
+						imageId++;
+						renderImage(imageId);
+					}
+				}
+				else if (e.keyCode === 27) {
+					toggleLightbox(e);
+				}
+			}
+			
+			document.onkeydown = checkKey;
+			searchGiphy('coding', 40, resultsCallback);
+		</script>
 	</body>
 </html>

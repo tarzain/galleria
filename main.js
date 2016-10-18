@@ -1,5 +1,5 @@
 function callAjax(url, params, callback){
-    
+    // populate URL params
     param_names = Object.keys(params);
 
     for (var i = param_names.length - 1; i >= 0; i--) {
@@ -7,8 +7,6 @@ function callAjax(url, params, callback){
       url += param_name + '=' + params[param_name] + '&';
     }
 
-    console.log(url);
-    
     var xhr;
     // compatible with IE7+, Firefox, Chrome, Opera, Safari
     xhr = new XMLHttpRequest();
@@ -25,5 +23,7 @@ var searchGiphy = function(search_tag, n_images, callback){
   // this function will return n thumbnail urls for a given search tag query
   var BASE_URL = 'http://api.giphy.com/v1/gifs/search?';
   var params = {'q' : search_tag, 'api_key' : API_KEY, 'limit' : n_images};
+
   callAjax(BASE_URL, params, callback);
 }
+

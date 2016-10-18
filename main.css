@@ -1,0 +1,123 @@
+body {
+  width: 80%;
+  margin: 30px auto;
+  font-family: sans-serif;
+}
+
+body.noscroll{
+  overflow: hidden;
+}
+
+h3 {
+  text-align: center;
+  font-size: 1.65em;
+  margin: 0 0 30px;
+}
+
+div {
+  font-size: 0;
+}
+
+/*The Gallery*/
+a {
+  font-size: 16px;
+  overflow: hidden;
+  display: inline-block;
+  margin-bottom: 8px;
+  width: calc(50% - 4px);
+  height: 200px;
+  margin-right: 8px;
+}
+
+a:nth-of-type(2n) {
+  margin-right: 0;
+}
+
+@media screen and (min-width: 50em) {
+  a {
+    width: calc(25% - 6px);
+  }
+  
+  a:nth-of-type(2n) {
+    margin-right: 8px;
+  }
+  
+  a:nth-of-type(4n) {
+    margin-right: 0;
+  }
+}
+
+a:hover img {
+  transform: scale(0.85);
+  width: 100%;
+}
+
+figure {
+  margin: 0;
+}
+
+img {
+  border: none;
+  overflow: hidden;
+  height: 200px;
+  display: block;
+  background: #ccc;
+  transition: transform .2s ease-in-out;
+}
+
+.p a {
+  display: inline;
+  font-size: 13px;
+  margin: 0;
+}
+
+.p {
+  text-align: center;
+  font-size: 13px;
+  padding-top: 100px;
+}
+
+/* The Lightbox */
+#lightbox{
+  display: none;
+  position: absolute;
+  top: 0px;
+  width:100%;
+  height: 100%;
+  overflow-x:scroll;
+  left: 0px;
+  overflow-y: scroll;
+}
+
+#bg{
+  position: fixed;
+  top: 0%;
+  left: 0%;
+  width: 100%;
+  height: 100%;
+  background-color: black;
+  z-index:1001;
+  -moz-opacity: 0.8;
+  opacity: .90;
+  filter: alpha(opacity=80);
+}
+
+#lightbox.show{
+  display: block;
+}
+
+#bigImage{
+  position: fixed;
+  top: 25%;
+  left: 25%;
+  width: 50%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  z-index: 1004;
+}
+
+#bigImage > img{
+  height: 100%;
+  width: 100%;
+}
